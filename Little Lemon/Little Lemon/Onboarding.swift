@@ -20,18 +20,28 @@ struct Onboarding: View {
     var body: some View {
         NavigationView {
             VStack {
+                LittleLemonLogo()
                 NavigationLink(destination: Home(), isActive: $isLoggedIn) {
                     EmptyView()
                 }
+                    .padding(.bottom, 20)
+                Spacer()
                 Text("First Name")
-                    .font(.subheadline)
+                    .font(.title3)
                 TextField("First Name", text: $firstName)
+                    .padding()
+                    .overlay( RoundedRectangle(cornerRadius: 20).stroke(.gray.opacity(0.2)) )
                 Text("Last Name")
-                    .font(.subheadline)
+                    .font(.title3)
                 TextField("Last Name", text: $lastName)
+                    .padding()
+                    .overlay( RoundedRectangle(cornerRadius: 20).stroke(.gray.opacity(0.2)) )
                 Text("Email")
-                    .font(.subheadline)
+                    .font(.title3)
                 TextField("Email", text: $email)
+                    .padding()
+                    .overlay( RoundedRectangle(cornerRadius: 20).stroke(.gray.opacity(0.2)) )
+                Spacer()
                 Button("Register") {
                     if !firstName.isEmpty && !lastName.isEmpty && !email.isEmpty {
                         UserDefaults.standard.set(firstName, forKey: kFirstName)
@@ -41,12 +51,19 @@ struct Onboarding: View {
                         isLoggedIn = true
                     }
                 }
+                .foregroundColor(.black)
+                .padding([.leading, .trailing], 40)
+                .padding([.top, .bottom], 8)
+                .background(Color("approvedYellow"))
+                .cornerRadius(20)
+                Spacer()
             }
             .onAppear {
                 if UserDefaults.standard.bool(forKey: kIsLoggedIn) {
                     isLoggedIn = true
                 }
             }
+            .padding()
         }
     }
 }

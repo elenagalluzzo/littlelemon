@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F393B2A92BA8D81B00B7FB02 /* LittleLemonLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F393B2A82BA8D81B00B7FB02 /* LittleLemonLogo.swift */; };
 		F3D782B42B9F8F66005C901D /* Little_LemonApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D782B32B9F8F66005C901D /* Little_LemonApp.swift */; };
 		F3D782B82B9F8F67005C901D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3D782B72B9F8F67005C901D /* Assets.xcassets */; };
 		F3D782BB2B9F8F67005C901D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3D782BA2B9F8F67005C901D /* Preview Assets.xcassets */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F393B2A82BA8D81B00B7FB02 /* LittleLemonLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleLemonLogo.swift; sourceTree = "<group>"; };
 		F3D782B02B9F8F66005C901D /* Little Lemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Little Lemon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3D782B32B9F8F66005C901D /* Little_LemonApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Little_LemonApp.swift; sourceTree = "<group>"; };
 		F3D782B72B9F8F67005C901D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				F3D782B32B9F8F66005C901D /* Little_LemonApp.swift */,
 				F3D782D22BA15D13005C901D /* MenuList.swift */,
+				F393B2A82BA8D81B00B7FB02 /* LittleLemonLogo.swift */,
 				F3D782D42BA15D27005C901D /* MenuItem.swift */,
 				F3D782C62BA0155E005C901D /* Onboarding.swift */,
 				F3D782CC2BA1446B005C901D /* UserProfile.swift */,
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F393B2A92BA8D81B00B7FB02 /* LittleLemonLogo.swift in Sources */,
 				F3D782CB2BA02BD6005C901D /* Menu.swift in Sources */,
 				F3D782CD2BA1446B005C901D /* UserProfile.swift in Sources */,
 				F3D782CF2BA15CBA005C901D /* Persistence.swift in Sources */,

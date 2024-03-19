@@ -10,32 +10,122 @@ import SwiftUI
 struct Menu: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State var searchText = ""
+    @State var categorySelected = ""
     var body: some View {
         VStack {
-            Text("Little Lemon")
-            Text("Chicago")
-            Text("""
+            ZStack {
+                LittleLemonLogo()
+                    .padding(.bottom, 20)
+                HStack {
+                    Spacer()
+                    Image("profile-image-placeholder")
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .frame(width: 50)
+                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 20, trailing: 20))
+                }
+            }
+            ZStack {
+                VStack {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            
+                            Text("Little Lemon")
+                                .font(.largeTitle)
+                                .foregroundStyle(Color("approvedYellow"))
+                            Text("Chicago")
+                                .font(.title2)
+                                .foregroundStyle(.white)
+                            
+                            Text("""
                 "We are a family owned
                  Mediterranean restaurant,
                  focused on traditional
                  recipes served with a
                  modern twist.
                 """)
-            TextField("Search menu", text: $searchText)
+                            .font(.callout)
+                            .foregroundStyle(.white)
+                            .fixedSize(horizontal: false, vertical: true)
+                            
+                        }
+                        Image("HomePic")
+                            .resizable()
+                            .scaledToFit()
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                    }
+                    
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        TextField("Search menu", text: $searchText)
+                    }
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(.gray.opacity(0.2))).background(.white).cornerRadius(20)
+                    
+                }
+                
+                .padding()
+                .background(Color("oliveGreen"))
+            }
+            Text("ORDER FOR DELIVERY!")
+                .font(.title2)
+            HStack {
+                Button("Starters") {
+                    categorySelected = "starters"
+                }
+                .font(.callout)
+                .foregroundStyle(Color("oliveGreen"))
+                .padding()
+                .background(categorySelected == "starters" ? Color("oliveGreen").opacity(0.2) : Color("oliveGreen").opacity(0.4))
+                .cornerRadius(20)
+                Button("Mains") {
+                    categorySelected = "mains"
+                }
+                .font(.callout)
+                .foregroundStyle(Color("oliveGreen"))
+                .padding()
+                .background(categorySelected == "mains" ? Color("oliveGreen").opacity(0.2) : Color("oliveGreen").opacity(0.4))
+                .cornerRadius(20)
+                Button("Desserts") {
+                    categorySelected = "desserts"
+                }
+                .font(.callout)
+                .foregroundStyle(Color("oliveGreen"))
+                .padding()
+                .background(categorySelected == "desserts" ? Color("oliveGreen").opacity(0.2) : Color("oliveGreen").opacity(0.4))
+                .cornerRadius(20)
+                Button("Drinks") {
+                    categorySelected = "drinks"
+                }
+                .font(.callout)
+                .foregroundStyle(Color("oliveGreen"))
+                .padding()
+                .background(categorySelected == "drinks" ? Color("oliveGreen").opacity(0.2) : Color("oliveGreen").opacity(0.4))
+                .cornerRadius(20)
+            }
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
                     ForEach(dishes, id:\.self) { dish in
                         HStack {
-                            Text((dish.title ?? "") + " $" + (String(format: "%.2f", dish.price ?? "")))
+                            VStack (alignment: .leading){
+                                Text((dish.title ?? ""))
+                                    .font(.title3)
+                                Text((dish.descrip ?? ""))
+                                    .font(.caption)
+                                Text(" $" + (String(format: "%.2f", Float(dish.price ?? "") ?? 0)))
+                            }
+                            Spacer()
                             AsyncImage(url: URL(string: dish.image ?? "")) { image in
                                 image.resizable()
                             } placeholder: {
                                 ProgressView()
                             }
-                            .frame(width: 50, height: 50)
+                            .frame(width: 60, height: 60)
                         }
                     }
                 }
+                .scrollContentBackground(.hidden)
             }
         }
         .onAppear {
@@ -55,6 +145,8 @@ struct Menu: View {
                         newDish.title = item.title
                         newDish.image = item.image
                         newDish.price = item.price
+                        newDish.category = item.category
+                        newDish.descrip = item.description
                     }
                     try? viewContext.save()
                 }
@@ -69,8 +161,10 @@ struct Menu: View {
     }
     
     func buildPredicate() -> NSPredicate {
-        if searchText == "" {
+        if searchText == "" && categorySelected == "" {
             return NSPredicate(value: true)
+        } else if searchText == "" {
+            return NSPredicate(format: "category CONTAINS[cd] %@", categorySelected)
         } else {
             return NSPredicate(format: "title CONTAINS[cd] %@", searchText)
         }
